@@ -1,5 +1,5 @@
 # Rachel Ilan Mar. 26 2016
-
+import math
 
 # week 2
 
@@ -136,3 +136,79 @@ def item_order(order):
             order_dict[food] += 1
     return "salad:" + str(order_dict["salad"]) + " hamburger:" + \
            str(order_dict["hamburger"]) + " water:" + str(order_dict["water"])
+
+
+def min_monthly(annualInterestRate, balance, monthlyPaymentRate):
+    paid = 0
+    interest = annualInterestRate/12.0
+    remaining = balance
+
+    for i in range(12):
+        minimum_monthly = monthlyPaymentRate*remaining
+        paid += minimum_monthly
+        cur_bal = remaining - minimum_monthly
+        remaining = cur_bal + interest*cur_bal
+    print "Total paid:", round(paid, 2)
+    print "Remaining balance:", round(remaining, 2)
+
+
+def const_monthly(annualInterestRate, balance, const_payment):
+    paid = 0
+    interest = annualInterestRate/12.0
+    remaining = balance
+
+    for i in range(12):
+        paid += const_payment
+        cur_bal = remaining - const_payment
+        remaining = cur_bal + interest*cur_bal
+    return remaining
+
+
+def calculate_min_monthly_payment(balance, annualInterestRate):
+    guess = round(balance/12.0, -1)
+    left_balance = const_monthly(annualInterestRate, balance, guess)
+    while left_balance > 0:
+        guess += 10
+        left_balance = const_monthly(annualInterestRate, balance, guess)
+    print guess
+
+
+def calculate_min_monthly_payment_bisec(balance, annualInterestRate):
+    lower = balance/12.0
+    upper = (balance + balance*annualInterestRate)/12.0
+    guess = 0
+    while upper > lower:
+        guess = (upper + lower)/2
+        left_balance = round(const_monthly(annualInterestRate, balance, guess))
+        if left_balance < 0:
+            upper = guess
+        elif left_balance > 0:
+            lower = guess + 0.01
+        else:
+            lower, upper = guess, guess
+    print round(guess, 2)
+
+
+class USResident(Person):
+    """
+    A Person who resides in the US.
+    """
+    def __init__(self, name, status):
+        """
+        Initializes a Person object. A USResident object inherits
+        from Person and has one additional attribute:
+        status: a string, one of "citizen", "legal_resident", "illegal_resident"
+        Raises a ValueError if status is not one of those 3 strings
+        """
+        super(USResident, self).__init__(name)
+        if status not in ["citizen", "legal_resident", "illegal_resident"]:
+            raise ValueError("bad status")
+        self.status = status
+
+    def getStatus(self):
+        """
+        Returns the status
+        """
+        if self.status is None:
+            raise ValueError("no status")
+        return self.status
