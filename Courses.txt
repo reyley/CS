@@ -1,9 +1,10 @@
 Courses I'm doing, links and progress:
 
-Learn How to learn: week 4
-https://www.coursera.org/learn/learning-how-to-learn/home/week/4
+Effective Thinking Through Mathematics: Week 1
+https://courses.edx.org/courses/UTAustinX/UT.9.01x/1T2014/
 
 From Nand to Tetris: week 4
 https://www.coursera.org/learn/build-a-computer/home/week/4
 
-Introduction to computer science 6001X: COMPLETE
+Introduction to computer science 6001X: COMPLETED
+Learn How to learn (https://www.coursera.org/learn/learning-how-to-learn): COMPLETED
