@@ -39,5 +39,40 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+
+        And(a=instruction[15], b=true, out=isCommand);
+        Mux16(a=false, b=instruction, sel=isCommand,
+              out[0]=jgt, out[1]=jeq, out[2]=jlt,
+              out[3]=loadM, out[4]=loadD, out[5]=loadA1,
+              out[6]=no, out[7]=f, out[8]=ny, out[9]=zy, out[10]=nx, out[11]=zx, out[12]=takeAorM,
+              out[13..15]=extracommand);
+
+        // A register
+        Not(in=isCommand, out=Ainstruction);
+        Mux16(a=instruction, b=outALU, sel=isCommand, out=inA);
+        Or(a=Ainstruction, b=loadA1, out=loadA);
+        Register(in=inA, load=loadA, out=outA);
+
+        // PC
+        Not(in=ng, out=nonNeg);
+        Xor(a=nonNeg, b=zr, out=pos);
+        And(a=pos, b=jgt, out=jump0);
+        And(a=zr, b=jeq, out=jump1);
+        And(a=ng, b=jlt, out=jump2);
+        Or8Way(in[0]=jump0, in[1]=jump1, in[2]=jump2, in[3..7]=false, out=jump);
+        PC(in=outA, load=jump, inc=true, reset=reset, out=outPC);
+
+        // D register
+        Register(in=outALU, load=loadD, out=outD);
+
+        //ALU
+        Mux16(a=outA, b=inM, sel=takeAorM, out=ALUinY);
+        ALU(x=outD, y=ALUinY, zx=zx, nx=nx, zy=zy, ny=ny, f=f, no=no, out=outALU, zr=zr, ng=ng);
+
+        // output
+        And16(a=outPC, b=true, out[0..14]=pc, out[15]=extraPC);
+        And16(a=outA, b=true, out[0..14]=addressM, out[15]=extraA);
+        And(a=isCommand, b=loadM, out=writeM);
+        And16(a=outALU, b=true, out=outM);
+
 }
