@@ -1,9 +1,9 @@
 Courses I'm doing, links and progress:
 
-Effective Thinking Through Mathematics: Week 3
+Effective Thinking Through Mathematics: Week 4
 https://courses.edx.org/courses/UTAustinX/UT.9.01x/1T2014/courseware/7b7b00d9d76b4c24ab624f2413d6bef3/7f60c892ab234adcae353c5eae2861cf/
 
-SPD1x How to Code: Systematic Program Design - Part 1: Week 1
+SPD1x How to Code: Systematic Program Design - Part 1: Week 2
 https://courses.edx.org/courses/course-v1:UBCx+SPD1x+2T2016/courseware/d4b5b9454a3e47689c866b557162d73d/348790b506ce479789ffd6c227d1bc9d/
 
 From Nand to Tetris: COMPLETED
